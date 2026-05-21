@@ -1,0 +1,5 @@
+casatools
+casadata
+numpy
+snakemake
+visread[casa]
