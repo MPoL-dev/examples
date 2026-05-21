@@ -24,7 +24,7 @@ and you should see all scripts execute in order.
 
 
 # Table of Contents
-* [01 - **Intro**: Setup Mock Image and Baselines](01-generate-mock-baselines/README.md) | Generate a mock sky image $I_\nu(l,m)$ and interferometer baselines $(u,v)$ (but not visibilities $\mathcal{V}(u,v)$). These products are used as input for the other examples.
+* [01 - **Intro**: Setup Mock Image and Baselines](01-generate-mock-baselines/README.md) | Generate a mock sky image $I_\nu(l,m)$ and interferometer baselines $(u,v)$ (but not the visibilities). These products are used as input for the other examples.
 * [02 - **Intro**: Stochastic Gradient Descent](02-sgd/README.md) | A complete end-to-end example using MPoL to image mock data.
 * [03 - **Advanced**: Visibility Inference with Pyro](03-AS209-pyro-inference/README.md) | Use MPoL with Pyro to sample parametric visibility plane models.
 * [04 - **Advanced**: IM Lup protoplanetary disk](04-IMLup-multi-EB) | Use MPoL to image the ALMA DSHARP observations of the IM Lup protoplanetary disk, taking into account alignment and weight-scaling adjustments for a multi-execution block dataset.
