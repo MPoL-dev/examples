@@ -1,14 +1,16 @@
 # Download and extract datasets
 
-Contend with the fact that `casatools` frequently lags supported SPEC 0 Python versions, creating a situation where one needs a Python version old enough to run `casatools` but new enough to support modern development. These requirements are often mutually exclusive and require multiple Python versions as part of the same analysis.
-
-We've tried to decouple these somewhat, by isolating the `casatools` dependency to this specific example folder.
-
 # Installation and running
 
-As of 21 May 2026, the latest version supported by `casatools` is Python 3.10. 
+In this 'example,' one merely downloads and extracts the ALMA datasets to a common data format like `.npz` or `.asdf`. This step requires the `casatools` package, which frequently has restrictions on Python versions and installation environments.
 
-You can run to download individual datasets, or all of them at once.
+To simplify this step for users of the tutorials, one can use our Docker container via 
+```
+./run.sh
+```
 
+Depending on the speed of your internet connection, it may take some time to download the several Gb measurement sets from the archive servers.
 
-For subsequent examples, you will be asked to copy some of the data products into those folders.
+Upon successful completion, you should see the following items in your directory:
+
+Alternatively, if one already has their own Python environment compatible casatools, one can install the [relevant packages](../casatools-env/requirements.txt) into that environment.
