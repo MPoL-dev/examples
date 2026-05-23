@@ -1,6 +1,7 @@
 rule all:
     input:
-        "data/IM_Lup.ms",
+        "data/IM_Lup_baselines_and_weights.npz", 
+        "data/IM_Lup_baseline_plot.png"
 
 rule download_ms:
     output: temp("data/IMLup_continuum.ms.tgz")
