@@ -2,7 +2,6 @@ from datasets import load_dataset
 from PIL import Image, ImageOps, ImageMath
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.colors as mco
 import argparse
 
 dataset = load_dataset("ceyda/smithsonian_butterflies")
@@ -36,7 +35,7 @@ def process_image(
 
     # apodize
     im_apod = apodization_function(xsize, ysize, centerfrac, scale)
-    im_res = ImageMath.eval("a * b", a=im_invert, b=im_apod)
+    im_res = ImageMath.lambda_eval(lambda d: d["a"] * d["b"], a=im_invert, b=im_apod)
 
     # pad to square
     max_dim = np.maximum(xsize, ysize)
@@ -50,7 +49,7 @@ def process_image(
     a = np.array(im_small)
 
     # resizing operation can create some negative pixels, so
-    # best to just set these to mimimum, which should be 0
+    # best to just set these to the minimum, which should be 0
     a[a < 0] = 0.0
 
     b = a.astype("float64")
