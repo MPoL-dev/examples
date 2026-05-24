@@ -1,6 +1,5 @@
-casatools
-casadata
 numpy
 snakemake
 datasets
+matplotlib
 Pillow

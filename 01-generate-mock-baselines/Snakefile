@@ -1,27 +1,6 @@
 rule all:
     input:
-        "data/ms.ms",
         "data/mock_data.npz"
-
-rule download_ms:
-    output: temp("data/IMLup_continuum.ms.tgz")
-    shell: "wget https://almascience.eso.org/almadata/lp/DSHARP/MSfiles/IMLup_continuum.ms.tgz --directory-prefix=data/"
-
-rule untar_and_rename:
-    input: "data/IMLup_continuum.ms.tgz"
-    output: directory("data/ms.ms")
-    shell: 
-        "tar -xf {input} -C data/ --no-same-owner && "
-        "mv data/IMLup_continuum.ms {output}"
-
-# only uu and vv that have *all channels unflagged*
-# only 1 channel is taken from those available: [1, 8, 16]
-# 0.05 taken randomly from those
-# saved using float32
-rule export_baselines:
-    input: "data/ms.ms"
-    output: npz="data/baselines_and_weights.npz", plot="data/baseline_plot.png"
-    shell: "python export_baselines.py {input} {output.npz} {output.plot} --select_fraction 0.05"
 
 # saved using float32
 rule export_img:
@@ -31,7 +10,7 @@ rule export_img:
 # now package these together into a single .npz 
 rule package:
     input:
-        baselines="data/baselines_and_weights.npz",
+        baselines="data/IM_Lup_baselines_and_weights.npz",
         img="data/img.npy"
     output:
         "data/mock_data.npz"
