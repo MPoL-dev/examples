@@ -2,7 +2,29 @@
 
 This is a complete example demonstrating how MPoL works using simulated data.
 
-Before starting, you should have already run the scripts in the `generate-mock-baselines` folder to produce a mock sky image and interferometer baselines in a file called `mock_data.npz`. Then, you should copy that file to this repository under `data/mock_data.npz`.
+# Prerequisites
+
+Before starting, you should have already run the scripts `00` and `01` folders to produce mock baselines. Then, you will need to copy the `mock_data.npz` into this directory in a new `data` folder. For example, from within this 02 folder, run
+
+```shell
+$ mkdir data
+$ cp ../01-generate-mock-baselines/data/mock_data.npz data/
+```
+
+# Installation
+
+You can install necessary Python packages into your environment by
+```shell
+$ pip install -r requirements.txt
+```
+
+and then you can run the code by
+
+```shell 
+snakemake -c1 all
+```
+
+# Description of Contents
 
 This repository assumes that you will run all scripts from this `sgd` directory (the one containing `sgd/README.md`). Some aspects of the workflow are automated with Snakemake ([`Snakefile`](Snakefile)). 
 

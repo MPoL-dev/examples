@@ -1,3 +1,4 @@
 mpol
+tensorboard
 visread
 matplotlib
