@@ -46,6 +46,20 @@ $ snakemake -c1 all
 
 The RML imaging workflow is demonstrated in [`src/sgd.py`](src/sgd.py). We recommend looking through that file before reading the rest of this document. If you are new to PyTorch idioms, we recommend familiarizing yourself with the [PyTorch basics](https://mpol-dev.github.io/MPoL/background.html#pytorch) first. 
 
+The RML imaging workflow is not part of the Snakemake workflow, instead, one runs the script like
+
+```
+$ python src/sgd.py --epochs=5
+```
+
+Note this will just result in a short test. Run `python src/sgd.py --help` to see all available command line arguments, and see below for configurations that will result in better images.
+
+One can visualize the results using Tensorboard via
+
+```shell
+$ tensorboard --logdir runs
+```
+
 # Validation 
 Since this example uses mock data, we have the advantage of knowing the true sky image. This allows us to calculate a 'validation loss' between the synthesized image and the true sky.
 
@@ -94,6 +108,5 @@ Adding entropy regularization, and reducing learning rate slightly.
 ```shell
 python src/sgd.py --tensorboard-log-dir=runs/ent0 --load-checkpoint=checkpoints/2.pt --save-checkpoint=checkpoints/ent0.pt --lr 1e-1 --FWHM 0.05 --epochs=50 --lam-ent=1e-5
 ```
-
 
 Note that we could have started directly with the entropy regularization if we wished. The previous just demonstrates an exploratory workflow.

@@ -257,6 +257,7 @@ def main():
         vis_data.uu, vis_data.vv, vis_data.weight, vis_data.data
     )
 
+    print("running on ", device)
     print("total vis", len(train_dataset))
 
     # set the batch sizes for the loaders
