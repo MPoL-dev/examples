@@ -26,11 +26,23 @@ snakemake -c1 all
 
 # Description of Contents
 
-This repository assumes that you will run all scripts from this `sgd` directory (the one containing `sgd/README.md`). Some aspects of the workflow are automated with Snakemake ([`Snakefile`](Snakefile)). 
+This repository assumes that you will run all scripts from this `02` directory (the one containing `02-sgd/README.md`). Some aspects of the workflow are automated with Snakemake ([`Snakefile`](Snakefile)). 
 
 First, we recommend looking at [`src/load_data.py`](src/load_data.py) to see how mock visibilities $\mathcal{V}(u,v)$ are generated from the mock image and baselines.
 
 Then, we recommend looking at [`src/plot_baselines.py`](src/plot_baselines.py) and [`src/dirty_image.py`](src/dirty_image.py) to make diagnostic plots of the baseline and a dirty image of the data, to check that everything appears as you might expect.
+
+You can run these simple scripts using 
+
+```
+$ snakemake -c1 all
+```
+
+![baselines](analysis/baselines.png)
+
+![Dirty Beam and Image](analysis/dirty_image.png)
+
+# RML imaging workflow
 
 The RML imaging workflow is demonstrated in [`src/sgd.py`](src/sgd.py). We recommend looking through that file before reading the rest of this document. If you are new to PyTorch idioms, we recommend familiarizing yourself with the [PyTorch basics](https://mpol-dev.github.io/MPoL/background.html#pytorch) first. 
 
