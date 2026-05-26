@@ -1,7 +1,8 @@
 rule all:
     input: 
         "analysis/baselines.png",
-        "analysis/dirty_image.png"        
+        "analysis/dirty_image.png",
+        "analysis/butterfly.png"
 
 rule baselines:
     input: "data/mock_data.npz", "src/plot_baselines.py"
@@ -13,6 +14,16 @@ rule dirty_image:
     output: "analysis/dirty_image.png"
     shell: "python src/dirty_image.py {output}"
 
+
+rule checkpoint_en0:
+    input: "data/mock_data.npz", "src/sgd.py"
+    output: "checkpoints/ent0.pt"
+    shell: "python src/sgd.py --tensorboard-log-dir=runs/ent0 --save-checkpoint=checkpoints/ent0.pt --lr 1e-1 --FWHM 0.05 --epochs=5 --lam-ent=1e-5"
+
+rule rml_image:
+    input: checkpoint="checkpoints/ent0.pt", src="src/plot_image.py"
+    output: "analysis/butterfly.png"
+    shell: "python {input.src} {input.checkpoint} {output}"
 
 # some initial attempts
 # python src/sgd.py --tensorboard-log-dir=runs/exp0 --save-checkpoint=checkpoints/0.pt --lr 1e-2 --FWHM 0.05 --epochs=50
