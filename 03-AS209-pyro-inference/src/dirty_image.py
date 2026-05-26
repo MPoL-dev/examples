@@ -1,16 +1,10 @@
 import numpy as np
-import asdf
-import matplotlib
+import argparse
 import matplotlib.pyplot as plt 
-import matplotlib.ticker as ticker
 
-from mpol import coordinates, gridding
+from common import coords, load_data, make_dirty_image
 
-from common import make_dirty_image
-
-def plot_dirty_image():
-
-    img, beam = make_dirty_image(np.real(data), np.imag(data))
+def plot_dirty_image(img, beam):
 
     # set plot dimensions
     xx = 8 # in
@@ -57,11 +51,10 @@ def plot_dirty_image():
         a.set_ylabel(r"$\Delta \delta$ [${}^{\prime\prime}$]")
 
 def main():
-    
 
-    # load extracted visibilities from asdf file
-    d = asdf.open(fname)
-    uu = d["uu"]
-    vv = d["vv"]
-    weight = d["weight"]
-    data = d["data"]
+    parser = argparse.ArgumentParser(description="Make and plot a dirty image of AS 209")
+    parser.add_argument("adsf_path", help="The path of the .asdf file containing the continuum-averaged visibility data.")
+    args = parser.parse_args()
+
+    d = load_data(args.asdf_path)
+    img, beam = make_dirty_image(coords, d["uu"], d["vv"], d["weight"], np.real(d["data"]), np.imag(d["data"]))
