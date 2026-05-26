@@ -1,0 +1,6 @@
+mpol
+numpy
+matplotlib
+snakemake
+astropy
+asdf

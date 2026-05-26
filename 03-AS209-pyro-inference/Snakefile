@@ -1,0 +1,8 @@
+rule all:
+    input:
+        "data/AS209_continuum_averaged.asdf"
+
+rule download_data:
+    output: "data/AS209_continuum_averaged.asdf"
+    shell: "wget -P data https://zenodo.org/record/7732834/files/AS209_continuum_averaged.asdf"
+
