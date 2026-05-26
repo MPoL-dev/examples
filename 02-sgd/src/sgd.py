@@ -195,7 +195,7 @@ def main():
     parser.add_argument(
         "--batch-size",
         type=int,
-        default=2000,
+        default=1000,
         help="input batch size for training",
     )
     parser.add_argument(
@@ -207,7 +207,7 @@ def main():
     parser.add_argument(
         "--lr",
         type=float,
-        default=1e-3,
+        default=1e-2,
         help="learning rate",
     )
     parser.add_argument("--FWHM", type=float, default=0.05, help="FWHM of Gaussian Base layer in arcseconds.")

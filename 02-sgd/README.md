@@ -73,25 +73,42 @@ This approach cannot be used with real datasets, obviously, but in this case aff
 
 If the dataset lacks many long baselines, it is unrealistic for RML to recover the native resolution of the image. In this case, we can calculate the validation score at resolutions coarser than the source image. We do this by convolving both $I_\mathrm{true}$ and $I_\mathrm{syn}$ with a 2D Gaussian described by FWHMs of $\theta_a, \theta_b$  before computing $L_\mathrm{validation}$. 
 
-# (lack of) Regularization
+# Example Result
+Here is an example image produced with 
+
+```shell
+$ mkdir checkpoints
+$ python src/sgd.py --tensorboard-log-dir=runs/ent0 --save-checkpoint=checkpoints/ent0.pt --lr 1e-1 --FWHM 0.05 --epochs=5 --lam-ent=1e-5
+```
+
+and plotted with 
+
+```shell
+$ python src/plot_image.py checkpoints/ent0.pt analysis/butterfly.png
+```
+
+![RML Butterfly](analysis/butterfly.png)
+
+
+# More examples of training loops
 To demonstrate why regularization is needed for imaging workflows, try running without any:
 
-```
-python src/sgd.py --tensorboard-log-dir=runs/nolam0 --epochs=40 --log-interval=2 --save-checkpoint=checkpoints/nolam0.pt --lr 1e-2
+```shell
+python src/sgd.py --tensorboard-log-dir=runs/nolam0 --epochs=10 --log-interval=2 --save-checkpoint=checkpoints/nolam0.pt --lr 1e-2
 ```
 
 If run to convergence, you'll find a classic case of overfitting to the lower S/N visibilities at longer baselines / higher spatial frequencies. This manifests in the image as small splotches and/or individual pixels with very high flux concentrations. If we didn't enforce non-negative pixels by construction, this would probably manifest as high frequency "noise" similar to uniformly-weighted images.
 
 You can spot this behavior by monitoring the training loss and the validation loss with iteration. You will see the [classic textbook signature of overfitting](https://d2l.ai/chapter_linear-regression/generalization.html#underfitting-or-overfitting): the validation loss decreases for a while but eventually turns around and increases, while the training loss monotonically decreases as it fits the signal and then eventually tries to fit all the noise. One could attempt to regularize this behavior away using early stopping. However, in practice with real data we would not have access to a validation, so we look to alternative regularization techniques.
 
-# Maximum Entropy Regularization
+## Maximum Entropy Regularization
 
 One can obtain a decent image using Maximum Entropy Regularization. Here are a few examples that you can run, saving checkpoints and resuming from finished models. We recommend that you examine the output using Tensorboard after each run, and make adjustments accordingly.
 
 Initial run with no entropy:
 
 ```shell
-python src/sgd.py --tensorboard-log-dir=runs/exp0 --save-checkpoint=checkpoints/0.pt --lr 1e-2 --FWHM 0.05 --epochs=50
+python src/sgd.py --tensorboard-log-dir=runs/exp0 --save-checkpoint=checkpoints/0.pt --lr 1e-2 --FWHM 0.05 --epochs=10
 ```
 
 Resuming from previous model, and speeding up learning rate
@@ -109,4 +126,4 @@ Adding entropy regularization, and reducing learning rate slightly.
 python src/sgd.py --tensorboard-log-dir=runs/ent0 --load-checkpoint=checkpoints/2.pt --save-checkpoint=checkpoints/ent0.pt --lr 1e-1 --FWHM 0.05 --epochs=50 --lam-ent=1e-5
 ```
 
-Note that we could have started directly with the entropy regularization if we wished. The previous just demonstrates an exploratory workflow.
+Note that we could have started directly with the entropy regularization if we wished. This collection just demonstrates an exploratory workflow.
