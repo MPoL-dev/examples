@@ -1,3 +1,5 @@
 mpol
+tensorboard
 visread
 matplotlib
+snakemake
